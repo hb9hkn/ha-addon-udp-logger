@@ -1,27 +1,23 @@
 #!/bin/sh
 
 LOG_DIR="/share/udp_logs"
-mkdir -p "$LOG_DIR"
-touch "$LOG_DIR/test.txt"
-echo "test" > "$LOG_DIR/test.txt"
-
-LOG_DIR="/share/udp_logs"
 LOG_FILE="$LOG_DIR/udp_logs.log"
 PORT=514
 MAX_DAYS=7
 
 mkdir -p "$LOG_DIR"
 
-# Clean old logs
+# Rotate old logs
 find "$LOG_DIR" -name "udp_logs-*.log" -type f -mtime +$MAX_DAYS -exec rm {} \;
 
-# Archive current log
+# Archive existing log
 if [ -f "$LOG_FILE" ]; then
     TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
     mv "$LOG_FILE" "$LOG_DIR/udp_logs-$TIMESTAMP.log"
 fi
 
-# Use socat instead of netcat
-echo "Starting UDP listener on port $PORT"
-socat -T10 -u UDP-RECV:$PORT,reuseaddr STDOUT >> "$LOG_FILE"
+# Start the listener
+echo "Starting UDP logger on port $PORT using socat..."
+socat -T10 -u UDP-RECV:$PORT,reuseaddr,fork STDOUT | tee -a "$LOG_FILE"
+
 
