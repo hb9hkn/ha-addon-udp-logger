@@ -1,6 +1,11 @@
 #!/bin/sh
 
 LOG_DIR="/share/udp_logs"
+mkdir -p "$LOG_DIR"
+touch "$LOG_DIR/test.txt"
+echo "test" > "$LOG_DIR/test.txt"
+
+LOG_DIR="/share/udp_logs"
 LOG_FILE="$LOG_DIR/udp_logs.log"
 PORT=514
 MAX_DAYS=7
