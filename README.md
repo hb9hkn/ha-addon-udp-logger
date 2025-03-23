@@ -1,7 +1,7 @@
 # syslog Logger Add-on for Home Assistant
 
-This is a simple custom add-on that listens for syslog log messages on port udp/514
-and writes them to `/share/syslog/syslog.log`. It also performs log rotation, and clean up
+This is a simple custom add-on that listens for syslog messages on port udp/514
+and writes them to `/share/syslog/syslog.log`. It also performs log rotation, compression and clean up
 keeping logs for 7 days.
 
 # Installation
@@ -25,7 +25,7 @@ The syslog add-on creates its own container and uses socat to listen for incomin
 
 # Log rotation, compression and clean up
 Implement a simple automation to rotate, compress and remove old logs (logs older than 7 days will be removed)
-<pre> alias: Restart UDP Logger Add-on Daily
+<pre>alias: Restart UDP Logger Add-on Daily
 trigger:
   - platform: time
     at: "03:02:00"
@@ -34,3 +34,7 @@ action:
     data:
       addon: local_udp_logger
 mode: single </pre>
+# How to Test
+If you need to test if your implementation works, simply go to the Terminal and send the message:
+<pre>echo "hello1  HA UDP" | nc -u 192.168.1.9 514</pre>
+This command should generate a message (together with a timestamp) in the Log tab of the add-on and in the log file at /share/syslog/syslog.log
