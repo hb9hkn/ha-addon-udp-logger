@@ -1,4 +1,3 @@
 name: UDP Logger Add-on Repository
 url: https://github.com/hb9hkn/ha-addon-udp-logger
 maintainer: Klaus Kinski (ms2070ca@yahoo.com)
-"addons": ["udp_logger"]
