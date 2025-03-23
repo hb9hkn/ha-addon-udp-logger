@@ -45,3 +45,28 @@ If you need to test if your implementation works, simply go to the Terminal and 
 echo "Hello HA syslog" | nc -u <YOUR_HA_IP> 514
 ```
 This command should generate a message (together with a timestamp) in the Log tab of the add-on and in the log file at /share/syslog/syslog.log
+#Trigger automation based on log entries
+It is possible to trigger an automation (or a script) based on the log entries. 
+First you need to create a "sensor" (the example below would scan the log file every 5 seconds):
+```
+sensor:
+  - platform: file
+    name: UDP Logger Last Entry
+    file_path: /share/syslog/syslog.log
+    scan_interval: 5
+```
+Then you need to create an automation that will fire when a string is detected in the logs:
+```
+alias: Alert on specific syslog message
+trigger:
+  - platform: state
+    entity_id: sensor.udp_logger_last_entry
+condition:
+  - condition: template
+    value_template: >
+      {{ 'ALERT' in states('sensor.udp_logger_last_entry') }}
+action:
+  - service: notify.notify
+    data:
+      message: "UDP Logger received an ALERT message"
+```
