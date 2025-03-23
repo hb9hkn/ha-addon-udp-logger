@@ -14,6 +14,8 @@ Homeassistant does not have a syslog receiver for sending logs from different de
 
 The syslog add-on creates its own container and uses socat to listen for incoming messages. The messages are not processed - they are directly written to a file on /share/syslog/ in the file syslog.log. 
 
+There is no configuration for this add-on. It starts listening on port udp/514 when the add-on starts, generates the log file if it doesn't exist and cleans up the old log files if they exist. Everything is done automatically -- nothing needs to be configured other than creating the automation listed below.
+
 ### ⚠️ **Warning**
 > **This add-on does not monitor nor manage your availalbe disk space.  
 > Syslog messages can be very chatty. Make sure you restart the plugin daily 
