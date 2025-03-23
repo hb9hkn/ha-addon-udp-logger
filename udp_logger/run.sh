@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION="1.0.4"
+VERSION="1.0.5"
 LOG_DIR="/share/udp_logs"
 LOG_FILE="$LOG_DIR/udp_logs.log"
 PORT=55514
@@ -12,10 +12,21 @@ mkdir -p "$LOG_DIR"
 find "$LOG_DIR" -name "udp_logs-*.log" -type f -mtime +$MAX_DAYS -exec rm {} \;
 
 # Archive old log if exists
+# Archive previous log (if it exists)
 if [ -f "$LOG_FILE" ]; then
     TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
-    mv "$LOG_FILE" "$LOG_DIR/udp_logs-$TIMESTAMP.log"
+    ROTATED="$LOG_DIR/udp_logs-$TIMESTAMP.log"
+    mv "$LOG_FILE" "$ROTATED"
+    echo "Archived log: $ROTATED"
+
+    # Compress the rotated log
+    gzip "$ROTATED"
+    echo "Compressed log: $ROTATED.gz"
 fi
+
+# Clean up old compressed logs
+find "$LOG_DIR" -name "udp_logs-*.log.gz" -type f -mtime +$MAX_DAYS -exec rm {} \;
+
 
 touch "$LOG_FILE"
 echo "UDP Logger started — version $VERSION" >> "$LOG_FILE"
