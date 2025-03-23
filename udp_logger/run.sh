@@ -18,7 +18,7 @@ fi
 
 # Start the UDP listener without 'fork'
 echo "Starting UDP logger on port $PORT using socat..."
-socat -T10 -u UDP-RECV:$PORT,reuseaddr STDOUT | tee -a "$LOG_FILE"
+socat -T10 -u UDP-RECV:$PORT,reuseaddr STDOUT >> "$LOG_FILE"
 
 
 
