@@ -28,7 +28,8 @@ There is no configuration for this add-on. It starts listening on port udp/514 w
 
 # Log rotation, compression and clean up
 Implement a simple automation to rotate, compress and remove old logs (logs older than 7 days will be removed)
-<pre>alias: Restart UDP Logger Add-on Daily
+```
+alias: Restart UDP Logger Add-on Daily
 trigger:
   - platform: time
     at: "03:02:00"
@@ -36,7 +37,8 @@ action:
   - service: hassio.addon_restart
     data:
       addon: local_udp_logger
-mode: single </pre>
+mode: single
+```
 # How to Test
 If you need to test if your implementation works, simply go to the Terminal and send the message:
 ```
