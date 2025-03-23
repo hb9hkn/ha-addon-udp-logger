@@ -27,7 +27,7 @@ There is no configuration for this add-on. It starts listening on port udp/514 w
 
 
 # Log rotation, compression and clean up
-Implement a simple automation to rotate, compress and remove old logs (logs older than 7 days will be removed)
+Implement a simple automation to rotate, compress and remove old logs. Logs can be retains for a period defined in the add-on's Configuration page. The value can be between 1 and 30 days. 
 ```
 alias: Restart UDP Logger Add-on Daily
 trigger:
@@ -45,28 +45,37 @@ If you need to test if your implementation works, simply go to the Terminal and 
 echo "Hello HA syslog" | nc -u <YOUR_HA_IP> 514
 ```
 This command should generate a message (together with a timestamp) in the Log tab of the add-on and in the log file at /share/syslog/syslog.log
-#Trigger automation based on log entries
-It is possible to trigger an automation (or a script) based on the log entries. 
-First you need to create a "sensor" (the example below would scan the log file every 5 seconds):
-```
-sensor:
-  - platform: file
-    name: UDP Logger Last Entry
-    file_path: /share/syslog/syslog.log
-    scan_interval: 5
-```
-Then you need to create an automation that will fire when a string is detected in the logs:
-```
-alias: Alert on specific syslog message
-trigger:
-  - platform: state
-    entity_id: sensor.udp_logger_last_entry
-condition:
-  - condition: template
-    value_template: >
-      {{ 'ALERT' in states('sensor.udp_logger_last_entry') }}
-action:
-  - service: notify.notify
-    data:
-      message: "UDP Logger received an ALERT message"
-```
+### 🔧 Configuration
+
+**Trigger Patterns:**  
+Enter keywords or phrases that, when matched in incoming UDP messages, will trigger a Home Assistant event.  
+Example patterns:
+- `ALERT`
+- `door opened`
+- `unauthorized access`
+
+These are not case-sensitive. Each pattern will be matched against every incoming line.
+## 🔐 How to Create a Home Assistant Long-Lived Access Token (`ha_token`)
+
+To allow the UDP Logger add-on to communicate with Home Assistant (e.g., fire events), you need to provide a **long-lived access token**.
+
+### ✅ Step-by-Step Instructions
+
+1. Log in to your Home Assistant web interface.
+2. Click your **profile picture or initials** in the bottom-left corner to open your **User Profile**.
+3. Scroll down to the section called **Long-Lived Access Tokens**.
+4. Click **“Create Token”**.
+5. Enter a name like `UDP Logger` and click **OK**.
+6. **Copy the token** — you won’t be able to view it again!
+7. In Home Assistant, go to:
+   **Settings → Add-ons → UDP Logger → Configuration**
+8. Paste the token into the `ha_token` field.
+9. Save and **restart the add-on**.
+
+---
+
+### ⚠️ Important Notes
+
+- Keep this token **private** — it grants access to your HA instance.
+- You can revoke the token anytime via your profile.
+- Tokens do **not expire automatically** unless you remove them.
