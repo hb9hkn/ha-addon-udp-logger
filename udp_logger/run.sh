@@ -3,7 +3,7 @@
 VERSION="1.0.5"
 LOG_DIR="/share/udp_logs"
 LOG_FILE="$LOG_DIR/udp_logs.log"
-PORT=55514
+PORT=514
 MAX_DAYS=7
 
 mkdir -p "$LOG_DIR"
