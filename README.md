@@ -4,10 +4,6 @@ This is a simple custom add-on that listens for syslog messages on port udp/514
 and writes them to `/share/syslog/syslog.log`. It also performs log rotation, compression and clean up
 keeping logs for 7 days.
 
-# Installation
-This add-on can be added via my [Home Assistant Add-on repository](https://github.com/hb9hkn/ha-addon-udp-logger):
-
-
 ### ⚠️ **Warning**
 > **This add-on does not monitor nor manage your availalbe disk space.  
 > Syslog messages can be very chatty. Make sure you restart the plugin daily 
@@ -16,6 +12,9 @@ This add-on can be added via my [Home Assistant Add-on repository](https://githu
 > the logs can fill up your available disk space. HA will have major problems 
 > running if the disk is full, or it may simply crash.
 > I take no responsibility for consequences of using this add-on.** 
+
+# Installation
+This add-on can be added via my [Home Assistant Add-on repository](https://github.com/hb9hkn/ha-addon-udp-logger):
 
 [![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fhb9hkn%2Fha-addon-udp-logger)
 
