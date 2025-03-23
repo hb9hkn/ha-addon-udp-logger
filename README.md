@@ -39,6 +39,7 @@ action:
 mode: single </pre>
 # How to Test
 If you need to test if your implementation works, simply go to the Terminal and send the message:
-<pre>```bash
-echo "Hello HA syslog" | nc -u <YOUR_HA_IP> 514```</pre>
+<pre>```
+echo "Hello HA syslog" | nc -u <YOUR_HA_IP> 514
+```</pre>
 This command should generate a message (together with a timestamp) in the Log tab of the add-on and in the log file at /share/syslog/syslog.log
