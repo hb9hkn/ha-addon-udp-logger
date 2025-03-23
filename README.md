@@ -18,11 +18,13 @@ This add-on can be added via my [Home Assistant Add-on repository](https://githu
 [![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fhb9hkn%2Fha-addon-udp-logger)
 
 # [Documentation](https://github.com/hb9hkn/ha-addon-udp-logger)
-Homeassistant does not have a syslog receiver for sending logs from different devices directly via udp/514. 
+Homeassistant does not have a syslog listener for sending logs from different devices directly via udp/514. For example, network equipment sends syslog messages by default. If you want to your WiFi router to send a log message when it loses internet connection so that you can trigger an automation (e.g. the WiFi router reset), there is currently no facility in the HA to receive such a message.
 
 The syslog add-on creates its own container and uses socat to listen for incoming messages. The messages are not processed - they are directly written to a file on /share/syslog/ in the file syslog.log. 
 
  It starts listening on port udp/514 when the add-on starts, generates the log file if it doesn't exist and cleans up the old log files if they exist. 
+
+This plugin does NOT support (currently) a TLS syslog or other security features. It simply allows the basic syslog messages to be received by the HA. 
 
 # IMPORTANT: Log rotation, compression and clean up
 Log file rotation, compression and clean up requires a restart of the add-on. Logs can be retains for a period defined in the add-on's Configuration page. The value can be between 1 and 30 days. 
@@ -40,8 +42,8 @@ mode: single
 
 # 🔧 Configuration
 
-##Trigger Patterns:
-Enter keywords or phrases that, when matched in incoming UDP messages, will trigger a Home Assistant event.  
+## Trigger Patterns:
+Enter keywords or phrases that, when matched in incoming syslog messages, will trigger a Home Assistant event.  
 Example patterns:
 - `ALERT`
 - `door opened`
