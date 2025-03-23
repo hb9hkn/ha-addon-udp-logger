@@ -15,17 +15,17 @@ Homeassistant does not have a syslog receiver for sending logs from different de
 The syslog add-on creates its own container and uses socat to listen for incoming messages. The messages are not processed - they are directly written to a file on /share/syslog/ in the file syslog.log. 
 
 ### ⚠️ **Warning**
-> This add-on does not monitor nor manage your availalbe disk space.  
+> **This add-on does not monitor nor manage your availalbe disk space.  
 > Syslog messages can be very chatty. Make sure you restart the plugin daily 
 > to rotate and compress the logs as well as clean up old logs 
 > (see the proposed automation below). If you decide not to run the restart,
 > the logs can fill up your available disk space. HA will have major problems 
 > running if the disk is full, or it may simply crash.
-> I take no responsibility for consequences of using this add-on. 
+> I take no responsibility for consequences of using this add-on.** 
 
 # Log rotation, compression and clean up
 Implement a simple automation to rotate, compress and remove old logs (logs older than 7 days will be removed)
-<pre> ```alias: Restart UDP Logger Add-on Daily
+<pre> alias: Restart UDP Logger Add-on Daily
 trigger:
   - platform: time
     at: "03:02:00"
@@ -33,4 +33,4 @@ action:
   - service: hassio.addon_restart
     data:
       addon: local_udp_logger
-mode: single``` </pre>
+mode: single </pre>
