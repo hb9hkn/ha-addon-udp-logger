@@ -12,4 +12,6 @@ arch:
   - armv7
 options: {}
 schema: {}
+map:
+  - share:rw
 
