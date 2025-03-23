@@ -30,7 +30,6 @@ echo "Starting socat with syslog Logger add-on v$VERSION on port $PORT..." | tee
 
 # Load configuration from /data/options.json
 PATTERNS=$(jq -r '.trigger_patterns[]?' /data/options.json)
-HA_URL=$(jq -r '.ha_url' /data/options.json)
 HA_TOKEN=$(jq -r '.ha_token' /data/options.json)
 
 # Validate token
@@ -54,7 +53,7 @@ done | while read line; do
       curl -s -X POST -H "Authorization: Bearer $HA_TOKEN" \
            -H "Content-Type: application/json" \
            -d "{\"event_type\": \"udp_logger_match\", \"data\": {\"message\": \"$line\", \"pattern\": \"$pattern\"}}" \
-           "$HA_URL/api/events/udp_logger_match" \
+           "$http://homeassistant.local:8123/api/events/udp_logger_match" \
            >> "$LOG_FILE"
     fi
   done

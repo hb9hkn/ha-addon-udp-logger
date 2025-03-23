@@ -12,18 +12,39 @@ arch:
   - armv7
 options:
   trigger_patterns:
-    - ALERT
-    - ERROR
-  ha_url: "http://homeassistant.local:8123"
+    - "ALERT"
+    - "ERROR"
   ha_token: ""
   max_days: 7
-
 schema:
   trigger_patterns:
-    - str
-  ha_url: str
-  ha_token: password
-  max_days: int
+    name: Trigger Patterns
+    description: List of keywords or phrases to watch for in UDP log messages. When a log line contains any of these, an event is sent to Home Assistant.
+    required: true
+    selector:
+      object:
+        type: list
+        reorderable: true
+        addable: true
+        item_type:
+          type: string
+  ha_token:
+    name: Home Assistant Token
+    description: Long-lived access token used to send events to Home Assistant.
+    required: true
+    selector:
+      text:
+        type: password
+  max_days:
+    name: Log Retention (Days)
+    description: Number of days to retain compressed logs.
+    required: true
+    selector:
+      number:
+        min: 1
+        max: 30
+        unit_of_measurement: "days"
+        mode: box
 map:
   - share:rw
 
