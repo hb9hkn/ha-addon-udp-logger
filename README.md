@@ -1,8 +1,7 @@
 # syslog Logger Add-on for Home Assistant
 
 This is a simple custom add-on that listens for syslog messages on port udp/514
-and writes them to `/share/syslog/syslog.log`. It also performs log rotation, compression and clean up
-keeping logs for 7 days.
+and writes them to `/share/syslog/syslog.log`. It also performs log rotation, compression and clean up at startup (an automation is required to regularly perform log clean up).
 
 ### ⚠️ **Warning**
 > **This add-on does not monitor nor manage your availalbe disk space.  
@@ -23,10 +22,9 @@ Homeassistant does not have a syslog receiver for sending logs from different de
 
 The syslog add-on creates its own container and uses socat to listen for incoming messages. The messages are not processed - they are directly written to a file on /share/syslog/ in the file syslog.log. 
 
-There is no configuration for this add-on. It starts listening on port udp/514 when the add-on starts, generates the log file if it doesn't exist and cleans up the old log files if they exist. Everything is done automatically -- nothing needs to be configured other than creating the automation listed below.
+ It starts listening on port udp/514 when the add-on starts, generates the log file if it doesn't exist and cleans up the old log files if they exist. 
 
-
-# Log rotation, compression and clean up
+# IMPORTANT: Log rotation, compression and clean up
 Implement a simple automation to rotate, compress and remove old logs. Logs can be retains for a period defined in the add-on's Configuration page. The value can be between 1 and 30 days. 
 ```
 alias: Restart UDP Logger Add-on Daily
@@ -39,15 +37,10 @@ action:
       addon: local_udp_logger
 mode: single
 ```
-# How to Test
-If you need to test if your implementation works, simply go to the Terminal and send the message:
-```
-echo "Hello HA syslog" | nc -u <YOUR_HA_IP> 514
-```
-This command should generate a message (together with a timestamp) in the Log tab of the add-on and in the log file at /share/syslog/syslog.log
+
 ### 🔧 Configuration
 
-**Trigger Patterns:**  
+##Trigger Patterns:
 Enter keywords or phrases that, when matched in incoming UDP messages, will trigger a Home Assistant event.  
 Example patterns:
 - `ALERT`
@@ -79,3 +72,12 @@ To allow the UDP Logger add-on to communicate with Home Assistant (e.g., fire ev
 - Keep this token **private** — it grants access to your HA instance.
 - You can revoke the token anytime via your profile.
 - Tokens do **not expire automatically** unless you remove them.
+# How to Test
+If you need to test if your implementation works, simply go to the Terminal and send the message:
+```
+echo "Hello HA syslog" | nc -u <YOUR_HA_IP> 514
+```
+This command should generate a message (together with a timestamp) in the Log tab of the add-on and in the log file at /share/syslog/syslog.log
+
+## Log Retention Period
+Define the number of days you want the logs stored. One day will be in clear ASCII file at /share/syslog/syslog.log. All older files will be compressed (using zip) and retained for the number of days you define. The limit of days can be between 1 and 30 days. Carefully calculate the available disk space (see the Warning above). The old logs will be removed after the number of days you define.
