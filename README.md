@@ -83,7 +83,7 @@ echo "Hello HA syslog" | nc -u <YOUR_HA_IP> 514
 ```
 This command should generate a message (together with a timestamp) in the Log tab of the add-on and in the log file at /share/syslog/syslog.log
 
-#How to Trigger Automations based on logs
+# How to Trigger Automations based on logs
 The add-on sends an alert json with the following content:
 <pre>
 {
