@@ -12,5 +12,4 @@ arch:
   - armv7
 options: {}
 schema: {}
-image: local/udp_logger
 
