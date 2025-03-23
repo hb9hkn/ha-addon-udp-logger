@@ -1,5 +1,5 @@
 name: Syslog Logger
-version: 1.1.1
+version: 1.1.2
 slug: udp_logger
 description: Listens for UDP (syslog) log messages on port udp/514 and writes them to a file.
 startup: application
@@ -18,33 +18,8 @@ options:
   max_days: 7
 schema:
   trigger_patterns:
-    name: Trigger Patterns
-    description: List of keywords or phrases to watch for in UDP log messages. When a log line contains any of these, an event is sent to Home Assistant.
-    required: true
-    selector:
-      object:
-        type: list
-        reorderable: true
-        addable: true
-        item_type:
-          type: string
-  ha_token:
-    name: Home Assistant Token
-    description: Long-lived access token used to send events to Home Assistant.
-    required: true
-    selector:
-      text:
-        type: password
-  max_days:
-    name: Log Retention (Days)
-    description: Number of days to retain compressed logs.
-    required: true
-    selector:
-      number:
-        min: 1
-        max: 30
-        unit_of_measurement: "days"
-        mode: box
+    - str
+  ha_token: password
+  max_days: int(1,30)
 map:
   - share:rw
-

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION="1.1.1"
+VERSION="1.1.2"
 LOG_DIR="/share/syslog"
 LOG_FILE="$LOG_DIR/syslog.log"
 PORT=514
@@ -46,7 +46,7 @@ done | while read line; do
   echo "$TIMESTAMPED" | tee -a "$LOG_FILE"
 
   for pattern in $PATTERNS; do
-    if echo "$line" | grep -q "$pattern"; then
+    if echo "$line" | grep -qi "$pattern"; then
       echo "Matched pattern: $pattern" | tee -a "$LOG_FILE"
 
       # Send event to Home Assistant
