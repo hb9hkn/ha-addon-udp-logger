@@ -17,6 +17,10 @@ if [ -f "$LOG_FILE" ]; then
     mv "$LOG_FILE" "$LOG_DIR/udp_logs-$TIMESTAMP.log"
 fi
 
+# Ensure log file exists before starting
+touch "$LOG_FILE"
+echo "UDP Logger started — version $VERSION" >> "$LOG_FILE"
+
 # Start the UDP listener without 'fork'
 echo "Starting UDP logger on port $PORT using socat... version $VERSION"
 socat -T10 -u UDP-RECV:$PORT,reuseaddr STDOUT >> "$LOG_FILE"
