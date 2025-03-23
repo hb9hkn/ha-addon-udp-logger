@@ -38,7 +38,7 @@ action:
 mode: single
 ```
 
-### 🔧 Configuration
+# 🔧 Configuration
 
 ##Trigger Patterns:
 Enter keywords or phrases that, when matched in incoming UDP messages, will trigger a Home Assistant event.  
@@ -72,12 +72,14 @@ To allow the UDP Logger add-on to communicate with Home Assistant (e.g., fire ev
 - Keep this token **private** — it grants access to your HA instance.
 - You can revoke the token anytime via your profile.
 - Tokens do **not expire automatically** unless you remove them.
+
+
+## Log Retention Period
+Define the number of days you want the logs stored. One day will be in clear ASCII file at /share/syslog/syslog.log. All older files will be compressed (using zip) and retained for the number of days you define. The limit of days can be between 1 and 30 days. Carefully calculate the available disk space (see the Warning above). The old logs will be removed after the number of days you define.
+
 # How to Test
 If you need to test if your implementation works, simply go to the Terminal and send the message:
 ```
 echo "Hello HA syslog" | nc -u <YOUR_HA_IP> 514
 ```
 This command should generate a message (together with a timestamp) in the Log tab of the add-on and in the log file at /share/syslog/syslog.log
-
-## Log Retention Period
-Define the number of days you want the logs stored. One day will be in clear ASCII file at /share/syslog/syslog.log. All older files will be compressed (using zip) and retained for the number of days you define. The limit of days can be between 1 and 30 days. Carefully calculate the available disk space (see the Warning above). The old logs will be removed after the number of days you define.
