@@ -1,10 +1,10 @@
 #!/bin/sh
 
-VERSION="1.1.2"
+VERSION="1.1.3"
 LOG_DIR="/share/syslog"
 LOG_FILE="$LOG_DIR/syslog.log"
 PORT=514
-MAX_DAYS=$(jq -r '.max_days' /data/options.json)
+MAX_DAYS=$(jq -r '.max_days // 7' /data/options.json)
 
 mkdir -p "$LOG_DIR"
 
@@ -53,7 +53,7 @@ done | while read line; do
       curl -s -X POST -H "Authorization: Bearer $HA_TOKEN" \
            -H "Content-Type: application/json" \
            -d "{\"event_type\": \"udp_logger_match\", \"data\": {\"message\": \"$line\", \"pattern\": \"$pattern\"}}" \
-           "$http://homeassistant.local:8123/api/events/udp_logger_match" \
+           "http://homeassistant.local:8123/api/events/udp_logger_match" \
            >> "$LOG_FILE"
     fi
   done

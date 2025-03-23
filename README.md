@@ -25,7 +25,7 @@ The syslog add-on creates its own container and uses socat to listen for incomin
  It starts listening on port udp/514 when the add-on starts, generates the log file if it doesn't exist and cleans up the old log files if they exist. 
 
 # IMPORTANT: Log rotation, compression and clean up
-Implement a simple automation to rotate, compress and remove old logs. Logs can be retains for a period defined in the add-on's Configuration page. The value can be between 1 and 30 days. 
+Log file rotation, compression and clean up requires a restart of the add-on. Logs can be retains for a period defined in the add-on's Configuration page. The value can be between 1 and 30 days. 
 ```
 alias: Restart UDP Logger Add-on Daily
 trigger:
@@ -56,14 +56,15 @@ To allow the UDP Logger add-on to communicate with Home Assistant (e.g., fire ev
 
 1. Log in to your Home Assistant web interface.
 2. Click your **profile picture or initials** in the bottom-left corner to open your **User Profile**.
-3. Scroll down to the section called **Long-Lived Access Tokens**.
-4. Click **“Create Token”**.
-5. Enter a name like `UDP Logger` and click **OK**.
-6. **Copy the token** — you won’t be able to view it again!
-7. In Home Assistant, go to:
+3. Select the "Security" tab at the top
+4. Scroll down to the section called **Long-Lived Access Tokens**.
+5. Click **“Create Token”**.
+6. Enter a name like `UDP Logger` and click **OK**.
+7. **Copy the token** — you won’t be able to view it again!
+8. In Home Assistant, go to:
    **Settings → Add-ons → UDP Logger → Configuration**
-8. Paste the token into the `ha_token` field.
-9. Save and **restart the add-on**.
+9. Paste the token into the `ha_token` field.
+10. Save and **restart the add-on**.
 
 ---
 
@@ -71,8 +72,6 @@ To allow the UDP Logger add-on to communicate with Home Assistant (e.g., fire ev
 
 - Keep this token **private** — it grants access to your HA instance.
 - You can revoke the token anytime via your profile.
-- Tokens do **not expire automatically** unless you remove them.
-
 
 ## Log Retention Period
 Define the number of days you want the logs stored. One day will be in clear ASCII file at /share/syslog/syslog.log. All older files will be compressed (using zip) and retained for the number of days you define. The limit of days can be between 1 and 30 days. Carefully calculate the available disk space (see the Warning above). The old logs will be removed after the number of days you define.
