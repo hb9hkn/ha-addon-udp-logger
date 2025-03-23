@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION="1.0.1"
+VERSION="1.0.2"
 LOG_DIR="/share/udp_logs"
 LOG_FILE="$LOG_DIR/udp_logs.log"
 PORT=55514
