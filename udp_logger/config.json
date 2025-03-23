@@ -1,0 +1,13 @@
+{
+  "name": "UDP Logger",
+  "version": "1.0.0",
+  "slug": "udp_logger",
+  "description": "Listens for UDP log messages and writes them to a file.",
+  "startup": "application",
+  "boot": "auto",
+  "homeassistant": "2021.12.0",
+  "host_network": true,
+  "options": {},
+  "schema": {},
+  "image": "ghcr.io/yourusername/udp_logger-{arch}"
+}
