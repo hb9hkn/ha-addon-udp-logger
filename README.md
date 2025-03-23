@@ -27,7 +27,7 @@ The syslog add-on creates its own container and uses socat to listen for incomin
 This plugin does NOT support (currently) a TLS syslog or other security features. It simply allows the basic syslog messages to be received by the HA. 
 
 # IMPORTANT: Log rotation, compression and clean up
-Log file rotation, compression and clean up requires a restart of the add-on. Logs can be retains for a period defined in the add-on's Configuration page. The value can be between 1 and 30 days. 
+Log file rotation, compression and clean up requires a restart of the add-on. Logs can be retained for a period defined in the add-on's Configuration page. The value can be set between 1 and 30 days. 
 ```
 alias: Restart UDP Logger Add-on Daily
 trigger:
