@@ -16,8 +16,9 @@ if [ -f "$LOG_FILE" ]; then
     mv "$LOG_FILE" "$LOG_DIR/udp_logs-$TIMESTAMP.log"
 fi
 
-# Start the listener
+# Start the UDP listener without 'fork'
 echo "Starting UDP logger on port $PORT using socat..."
-socat -T10 -u UDP-RECV:$PORT,reuseaddr,fork STDOUT | tee -a "$LOG_FILE"
+socat -T10 -u UDP-RECV:$PORT,reuseaddr STDOUT | tee -a "$LOG_FILE"
+
 
 
