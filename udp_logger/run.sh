@@ -2,7 +2,7 @@
 
 LOG_DIR="/share/udp_logs"
 LOG_FILE="$LOG_DIR/udp_logs.log"
-PORT=514
+PORT=55514
 MAX_DAYS=7
 
 mkdir -p "$LOG_DIR"
@@ -15,6 +15,9 @@ if [ -f "$LOG_FILE" ]; then
     TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
     mv "$LOG_FILE" "$LOG_DIR/udp_logs-$TIMESTAMP.log"
 fi
+
+echo "Writing to log file: $LOG_FILE"
+ls -l "$LOG_FILE" || echo "Log file not found"
 
 # Start the UDP listener without 'fork'
 echo "Starting UDP logger on port $PORT using socat..."
