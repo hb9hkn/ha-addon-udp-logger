@@ -1,5 +1,5 @@
 name: Syslog Logger
-version: 1.0.8
+version: 1.0.9
 slug: udp_logger
 description: Listens for UDP (syslog) log messages on port udp/514 and writes them to a file.
 startup: application
