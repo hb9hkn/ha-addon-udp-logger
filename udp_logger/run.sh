@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION="1.0.7"
+VERSION="1.0.8"
 LOG_DIR="/share/syslog"
 LOG_FILE="$LOG_DIR/syslog.log"
 PORT=514

@@ -1,7 +1,7 @@
-name: UDP Logger
-version: 1.0.7
+name: Syslog Logger
+version: 1.0.8
 slug: udp_logger
-description: Listens for UDP log messages and writes them to a file.
+description: Listens for UDP (syslog) log messages on port udp/514 and writes them to a file.
 startup: application
 boot: auto
 homeassistant: 2021.12.0
