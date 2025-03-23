@@ -89,7 +89,7 @@ The add-on sends an alert json with the following content:
 {
   "event_type": "udp_logger_match",
   "data": {
-    "message": "something matched",
+    "message": "log message that matched",
     "pattern": "ALERT"
   }
 }
@@ -107,7 +107,7 @@ action:
   - service: notify.notify
     data:
       message: >
-        🔔 ALERT received: {{ trigger.event.data.message }}
+        ALERT received: {{ trigger.event.data.message }}
 mode: single
 ```
 
