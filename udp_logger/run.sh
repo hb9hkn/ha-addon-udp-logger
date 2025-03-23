@@ -1,21 +1,21 @@
 #!/bin/sh
 
-VERSION="1.0.6"
-LOG_DIR="/share/udp_logs"
-LOG_FILE="$LOG_DIR/udp_logs.log"
+VERSION="1.0.7"
+LOG_DIR="/share/syslog"
+LOG_FILE="$LOG_DIR/syslog.log"
 PORT=514
 MAX_DAYS=7
 
 mkdir -p "$LOG_DIR"
 
 # Clean up old logs
-find "$LOG_DIR" -name "udp_logs-*.log" -type f -mtime +$MAX_DAYS -exec rm {} \;
+find "$LOG_DIR" -name "syslog-*.log" -type f -mtime +$MAX_DAYS -exec rm {} \;
 
 # Archive old log if exists
 # Archive previous log (if it exists)
 if [ -f "$LOG_FILE" ]; then
     TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
-    ROTATED="$LOG_DIR/udp_logs-$TIMESTAMP.log"
+    ROTATED="$LOG_DIR/syslog-$TIMESTAMP.log"
     mv "$LOG_FILE" "$ROTATED"
     echo "Archived log: $ROTATED"
 
@@ -25,7 +25,7 @@ if [ -f "$LOG_FILE" ]; then
 fi
 
 # Clean up old compressed logs
-find "$LOG_DIR" -name "udp_logs-*.log.gz" -type f -mtime +$MAX_DAYS -exec rm {} \;
+find "$LOG_DIR" -name "syslog-*.log.gz" -type f -mtime +$MAX_DAYS -exec rm {} \;
 
 
 touch "$LOG_FILE"
