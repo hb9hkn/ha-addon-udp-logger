@@ -78,6 +78,9 @@ To allow the UDP Logger add-on to communicate with Home Assistant (e.g., fire ev
 ## Log Retention Period
 Define the number of days you want the logs stored. One day will be in clear ASCII file at /share/syslog/syslog.log. All older files will be compressed (using zip) and retained for the number of days you define. The limit of days can be between 1 and 30 days. Carefully calculate the available disk space (see the Warning above). The old logs will be removed after the number of days you define.
 
+## Define the Port
+Define the udp (not TCP!) port to receive the log messages. The default port is 514 (as per standard), however you can choose any unused port from 10 to 65,535.
+
 # How to Test
 If you need to test if your implementation works, simply go to the Terminal and send the message:
 ```
