@@ -1,10 +1,10 @@
 #!/bin/sh
 
-VERSION="1.1.3"
+VERSION="1.1.4"
 LOG_DIR="/share/syslog"
 LOG_FILE="$LOG_DIR/syslog.log"
-PORT=514
 MAX_DAYS=$(jq -r '.max_days // 7' /data/options.json)
+PORT=$(jq -r '.port // 514' /data/options.json)
 
 mkdir -p "$LOG_DIR"
 
