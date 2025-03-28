@@ -1,4 +1,4 @@
-# syslog Logger Add-on for Home Assistant
+# syslog Server Add-on for Home Assistant
 
 This is a simple custom add-on that listens for syslog messages on port udp/514
 and writes them to `/share/syslog/syslog.log`. It also performs log rotation, compression and clean up at startup (an automation is required to regularly perform log clean up).
