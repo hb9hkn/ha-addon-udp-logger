@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION="1.1.4"
+VERSION="1.1.5"
 LOG_DIR="/share/syslog"
 LOG_FILE="$LOG_DIR/syslog.log"
 MAX_DAYS=$(jq -r '.max_days // 7' /data/options.json)
