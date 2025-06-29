@@ -40,7 +40,11 @@ fi
 
 # Start UDP listener and process incoming lines
 while true; do
-  socat -T10 -u UDP-LISTEN:$PORT,reuseaddr STDOUT
+(
+  socat -T10 -u UDP-LISTEN:$PORT,reuseaddr,fork STDOUT &
+  socat -T10 -u TCP-LISTEN:$PORT,reuseaddr,fork STDOUT &
+  wait
+)
 done | while read line; do
   TIMESTAMPED="$(date '+%Y-%m-%d %H:%M:%S') $line"
   echo "$TIMESTAMPED" | tee -a "$LOG_FILE"
