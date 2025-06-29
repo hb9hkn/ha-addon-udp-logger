@@ -2,7 +2,7 @@ name: Syslog Logger
 version: 1.1.5
 slug: udp_logger
 description: Listens for UDP and TCP (syslog) log messages on port udp/514 (by default and can be changed to another port) and writes them to a file
-startup: application. The port is always the same for udp and tcp (so if you change one, the other one will change as well)
+startup: application
 boot: auto
 homeassistant: 2021.12.0
 host_network: true
